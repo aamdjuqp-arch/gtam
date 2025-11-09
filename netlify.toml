@@ -60,14 +60,9 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000"
 
-# Netlify Functions - توجيه طلبات الـ API
-[[redirects]]
-  from = "/.netlify/functions/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
 # SPA Routing - Single Page Application
 # توجيه جميع الطلبات لملف index.html
+# Netlify Functions لا تحتاج redirect - Netlify يتعامل معها تلقائياً
 [[redirects]]
   from = "/*"
   to = "/index.html"
