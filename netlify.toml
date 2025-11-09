@@ -1,21 +1,93 @@
+# Netlify Configuration File
+# ============================================================
+# هذا الملف يحتوي على إعدادات النشر لـ Gulf Unified Gateway
+# Project: منصة الشحن الذكية
+# ============================================================
+
 [build]
+  # مجلد النشر النهائي
   publish = "dist"
+  
+  # أمر البناء
   command = "npm run build"
+  
+  # مجلد Netlify Functions
   functions = "netlify/functions"
 
+# إعدادات بيئة البناء
 [build.environment]
   NODE_VERSION = "18"
+  NPM_FLAGS = "--version"
 
+# Security Headers - حماية الموقع
 [[headers]]
   for = "/*"
   [headers.values]
+    # منع إدماج الموقع في iframe
     X-Frame-Options = "SAMEORIGIN"
+    
+    # منع MIME type sniffing
     X-Content-Type-Options = "nosniff"
+    
+    # حماية XSS
     X-XSS-Protection = "1; mode=block"
+    
+    # Referrer Policy
     Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Permissions Policy
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
-# Netlify Functions
+# Cache Policy for Static Assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache Policy for Images
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Netlify Functions - توجيه طلبات الـ API
 [[redirects]]
   from = "/.netlify/functions/*"
   to = "/.netlify/functions/:splat"
   status = 200
+
+# SPA Routing - Single Page Application
+# توجيه جميع الطلبات لملف index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Redirect old paths to new paths (if any)
+# يمكنك إضافة redirects قديمة هنا عند الحاجة
+# [[redirects]]
+#   from = "/old-route"
+#   to = "/new-route"
+#   status = 301
+#   force = true
+
+# External redirects (if needed)
+# [[redirects]]
+#   from = "/external-link"
+#   to = "https://external-site.com"
+#   status = 301
+#   force = true
+
+# ============================================================
+# انتهاء إعدادات Netlify
+# ============================================================
