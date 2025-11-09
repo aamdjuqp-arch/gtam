@@ -40,6 +40,7 @@ const CreateShippingLink = () => {
   const [selectedBank, setSelectedBank] = useState("");
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
   const [createdPaymentUrl, setCreatedPaymentUrl] = useState("");
+  const [createdMicrositeUrl, setCreatedMicrositeUrl] = useState("");
   const [linkId, setLinkId] = useState("");
   const [copied, setCopied] = useState(false);
   
@@ -100,9 +101,11 @@ const CreateShippingLink = () => {
         description: serviceBranding?.description || selectedServiceData?.description
       });
 
-      // حفظ الرابط وإظهار Dialog
+      // حفظ الروابط وإظهار Dialog
       const paymentUrl = `${window.location.origin}/pay/${link.id}/recipient?service=${selectedService}`;
+      const micrositeUrl = `${window.location.origin}/r/${country}/${link.type}/${link.id}?service=${selectedService}`;
       setCreatedPaymentUrl(paymentUrl);
+      setCreatedMicrositeUrl(micrositeUrl);
       setLinkId(link.id);
       setShowSuccessDialog(true);
       
@@ -125,17 +128,17 @@ const CreateShippingLink = () => {
   };
   
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(createdPaymentUrl);
+    navigator.clipboard.writeText(createdMicrositeUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
     toast({
       title: "تم النسخ!",
-      description: "تم نسخ الرابط إلى الحافظة",
+      description: "تم نسخ رابط الشحن إلى الحافظة",
     });
   };
-  
+
   const handlePreview = () => {
-    window.open(createdPaymentUrl, '_blank');
+    window.open(createdMicrositeUrl, '_blank');
   };
   
   const handleContinue = () => {
@@ -357,16 +360,36 @@ const CreateShippingLink = () => {
         <AlertDialogContent className="max-w-md" dir="rtl">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-xl text-center">
-              ✅ تم إنشاء رابط الدفع بنجاح!
+              ✅ تم إنشاء رابط الشحن بنجاح!
             </AlertDialogTitle>
             <AlertDialogDescription className="text-center">
-              يمكنك نسخ الرابط أو معاينته قبل المتابعة
+              يمكنك نسخ رابط الشحن أو معاينته قبل المتابعة لصفحة الدفع
             </AlertDialogDescription>
           </AlertDialogHeader>
-          
+
           <div className="my-4">
-            <div className="bg-secondary/50 p-3 rounded-lg mb-3 break-all text-xs">
-              {createdPaymentUrl}
+            <div className="space-y-3">
+              {/* Microsite URL - للنسخ والمعاينة */}
+              <div>
+                <p className="text-xs font-semibold mb-1 text-muted-foreground">رابط الشحن العام:</p>
+                <div className="bg-secondary/50 p-3 rounded-lg break-all text-xs">
+                  {createdMicrositeUrl}
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  💡 هذا الرابط للعميل لعرض تفاصيل الشحنة والدفع
+                </p>
+              </div>
+
+              {/* Payment URL - للمتابعة فقط */}
+              <div>
+                <p className="text-xs font-semibold mb-1 text-muted-foreground">رابط صفحة الدفع:</p>
+                <div className="bg-muted/50 p-2 rounded break-all text-[10px] text-muted-foreground">
+                  {createdPaymentUrl}
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  🔐 صفحة الدفع المباشرة
+                </p>
+              </div>
             </div>
             
             <div className="flex gap-2">
@@ -383,18 +406,18 @@ const CreateShippingLink = () => {
                 ) : (
                   <>
                     <Copy className="w-4 h-4 ml-2" />
-                    نسخ الرابط
+                    نسخ رابط الشحن
                   </>
                 )}
               </Button>
-              
+
               <Button
                 onClick={handlePreview}
                 variant="outline"
                 className="flex-1"
               >
                 <ExternalLink className="w-4 h-4 ml-2" />
-                معاينة
+                معاينة الشحن
               </Button>
             </div>
           </div>
