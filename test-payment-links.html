@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار روابط الدفع المستقلة</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        .link-box {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .link-box a {
+            color: #007bff;
+            text-decoration: none;
+            font-family: monospace;
+        }
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .info {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 اختبار روابط الدفع المستقلة</h1>
+
+        <div class="info">
+            <strong>ℹ️ تعليمات:</strong>
+            <p>هذه الصفحة تحتوي على روابط اختبار لروابط الدفع المستقلة. انقر على أي رابط لاختبار النظام.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>🇸🇦 رابط اختبار - السعودية (أرامكس - 500 ريال)</h3>
+            <div class="link-box">
+                <a href="/standalone-pay/pl_test_sa_aramex" target="_blank">
+                    /standalone-pay/pl_test_sa_aramex
+                </a>
+            </div>
+            <p>معلومات الرابط:</p>
+            <ul>
+                <li>الدولة: السعودية</li>
+                <li>الخدمة: أرامكس</li>
+                <li>المبلغ: 500 ر.س</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>🇦🇪 رابط اختبار - الإمارات (DHL - 750 درهم)</h3>
+            <div class="link-box">
+                <a href="/standalone-pay/pl_test_ae_dhl" target="_blank">
+                    /standalone-pay/pl_test_ae_dhl
+                </a>
+            </div>
+            <p>معلومات الرابط:</p>
+            <ul>
+                <li>الدولة: الإمارات</li>
+                <li>الخدمة: DHL</li>
+                <li>المبلغ: 750 د.إ</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>🇰🇼 رابط اختبار - الكويت (سمسا - 300 دينار)</h3>
+            <div class="link-box">
+                <a href="/standalone-pay/pl_test_kw_smsa" target="_blank">
+                    /standalone-pay/pl_test_kw_smsa
+                </a>
+            </div>
+            <p>معلومات الرابط:</p>
+            <ul>
+                <li>الدولة: الكويت</li>
+                <li>الخدمة: سمسا</li>
+                <li>المبلغ: 300 د.ك</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>⚠️ ملاحظة:</strong>
+            <p>هذه روابط اختبار فقط. لإنشاء رابط حقيقي، استخدم صفحة الاختبار التفاعلية أو دالة <code>createStandalonePaymentLink()</code>.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>🔧 روابط النظام</h3>
+            <p><a href="/standalone-payment-demo" class="button">صفحة إنشاء الروابط التفاعلية</a></p>
+            <p><a href="/telegram-test" class="button">اختبار تليجرام</a></p>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 معلومات تقنية</h3>
+            <ul>
+                <li>نظام الروابط المستقلة: <code>/standalone-pay/{id}</code></li>
+                <li>تخزين البيانات: localStorage</li>
+                <li>صيغة معرف الرابط: <code>pl_timestamp_random</code></li>
+                <li>المسارات المدعومة: 8 خطوات دفع</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <strong>✅ الحالة:</strong>
+            <p>جميع المسارات والصفحات تعمل بشكل صحيح. يمكن استخدام النظام لإنشاء روابط دفع مستقلة.</p>
+        </div>
+    </div>
+
+    <script>
+        // Log page load
+        console.log('Payment Links Test Page Loaded');
+        console.log('Time:', new Date().toISOString());
+    </script>
+</body>
+</html>

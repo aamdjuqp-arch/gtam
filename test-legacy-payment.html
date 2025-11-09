@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار صفحات الدفع القديمة</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #28a745;
+        }
+        .link-box {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+        .link-box a {
+            color: #28a745;
+            text-decoration: none;
+            font-family: monospace;
+        }
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #218838;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .steps {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .steps ol {
+            margin: 10px 0;
+            padding-right: 20px;
+        }
+        .steps li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 اختبار صفحات الدفع القديمة (Legacy)</h1>
+
+        <div class="warning">
+            <strong>⚠️ ملاحظة:</strong>
+            <p>هذه الصفحة لاختبار الروابط القديمة التي تستخدم مسار <code>/pay/{id}/...</code> بدلاً من <code>/standalone-pay/{id}/...</code></p>
+        </div>
+
+        <div class="test-section">
+            <h3>🇸🇦 اختبار الدفع - السعودية (أرامكس)</h3>
+            <div class="link-box">
+                <a href="/pay/test-id-123/recipient?service=aramex&country=SA" target="_blank">
+                    /pay/test-id-123/recipient?service=aramex&country=SA
+                </a>
+            </div>
+            <p><strong>الخطوات:</strong></p>
+            <ol>
+                <li>انقر على الرابط أعلاه</li>
+                <li>تأكد من ظهور النموذج (وليس صفحة بيضاء)</li>
+                <li>املأ البيانات</li>
+                <li>انقر "التالي"</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h3>🇦🇪 اختبار الدفع - الإمارات (DHL)</h3>
+            <div class="link-box">
+                <a href="/pay/test-id-456/recipient?service=dhl&country=AE" target="_blank">
+                    /pay/test-id-456/recipient?service=dhl&country=AE
+                </a>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>🇰🇼 اختبار الدفع - الكويت (سمسا)</h3>
+            <div class="link-box">
+                <a href="/pay/test-id-789/recipient?service=smsa&country=KW" target="_blank">
+                    /pay/test-id-789/recipient?service=smsa&country=KW
+                </a>
+            </div>
+        </div>
+
+        <div class="steps">
+            <h3>📝 تعليمات الاختبار:</h3>
+            <ol>
+                <li><strong>تحقق من عدم ظهور صفحة بيضاء:</strong> يجب أن يظهر محتوى الصفحة</li>
+                <li><strong>تحقق من تحميل البيانات:</strong> يجب أن تظهر خدمة الشحن والمبلغ</li>
+                <li><strong>اختبر النماذج:</strong> املأ البيانات وانقر "التالي"</li>
+                <li><strong>تحقق من console المتصفح:</strong> اضغط F12 وتحقق من عدم وجود أخطاء</li>
+            </ol>
+        </div>
+
+        <div class="warning">
+            <strong>🔧 إذا ظهرت صفحة بيضاء:</strong>
+            <p>هذا يعني أن هناك خطأ في JavaScript. تحقق من console المتصفح (F12) للاطلاع على تفاصيل الخطأ.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>🔍 روابط مفيدة أخرى:</h3>
+            <p><a href="/test-links" class="button">إنشاء روابط اختبار (Standalone)</a></p>
+            <p><a href="/standalone-payment-demo" class="button">الاختبار التفاعلي</a></p>
+            <p><a href="/test-payment-links.html" class="button">اختبار سريع (Standalone)</a></p>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 معلومات تقنية:</h3>
+            <ul>
+                <li><strong>المسار القديم:</strong> <code>/pay/{id}/recipient</code></li>
+                <li><strong>المسار الجديد:</strong> <code>/standalone-pay/{id}</code></li>
+                <li><strong>الاختلاف:</strong> المسار الجديد لا يعتمد على Supabase</li>
+                <li><strong>الحالة:</strong> تم إصلاح loading states والأخطاء</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>💡 التوصية:</strong>
+            <p>استخدم الروابط الجديدة <code>/standalone-pay/{id}</code> بدلاً من القديمة <code>/pay/{id}/...</code> لأنها أكثر استقراراً ولا تعتمد على Supabase.</p>
+        </div>
+    </div>
+
+    <script>
+        // Log page load
+        console.log('Legacy Payment Test Page Loaded');
+        console.log('Time:', new Date().toISOString());
+        console.log('User Agent:', navigator.userAgent);
+
+        // Check for common issues
+        console.log('=== System Check ===');
+        console.log('localStorage:', typeof(Storage) !== "undefined");
+        console.log('sessionStorage:', typeof(Storage) !== "undefined");
+        console.log('currentPath:', window.location.pathname);
+    </script>
+</body>
+</html>

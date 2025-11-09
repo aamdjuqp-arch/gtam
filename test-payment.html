@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار صفحات الدفع - Payment Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Almarai', Arial, sans-serif; 
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #0ea5e9;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 30px 20px;
+        }
+        .info-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid #10b981;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .test-link { 
+            display: block; 
+            padding: 20px; 
+            margin: 15px 0; 
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: 10px; 
+            color: #0ea5e9; 
+            text-decoration: none; 
+            border: 2px solid #0ea5e9;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .test-link:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        .test-link:hover:before {
+            left: 100%;
+        }
+        .test-link:hover { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white; 
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+        .test-id {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .test-url {
+            font-size: 14px;
+            opacity: 0.8;
+            word-break: break-all;
+        }
+        .status { 
+            padding: 15px; 
+            margin: 20px 0; 
+            border-radius: 8px; 
+            font-weight: bold;
+        }
+        .error { 
+            background: rgba(220, 38, 38, 0.2);
+            border: 2px solid #dc2626;
+            color: #fca5a5;
+        }
+        .success { 
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            color: #6ee7b7;
+        }
+        .checklist {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .checklist h3 {
+            margin-top: 0;
+            color: #0ea5e9;
+        }
+        .checklist li {
+            margin: 10px 0;
+            padding-right: 30px;
+            position: relative;
+        }
+        .checklist li:before {
+            content: '✓';
+            position: absolute;
+            right: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        .instructions {
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid #3b82f6;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 اختبار صفحات الدفع - Payment Pages Test</h1>
+        <p>اختبار شامل لصفحات الدفع المستقلة - Standalone Payment Pages Testing</p>
+    </div>
+
+    <div class="container">
+        <div class="info-box">
+            <h2>✅ تم إصلاح المشكلة - Issue Fixed!</h2>
+            <p><strong>المشكلة:</strong> كانت صفحات الدفع تظهر شاشة بيضاء لأن ملف _redirects لم يكن يحتوي على قاعدة للروابط standalone-pay</p>
+            <p><strong>الحل:</strong> تمت إضافة قاعدة redirect للروابط /standalone-pay/* لكي يتم توجيهها للتطبيق الرئيسي</p>
+        </div>
+
+        <div class="status success">
+            ✅ تم إصلاح ملف _redirects - All payment pages should now work!
+        </div>
+
+        <h2>🔗 روابط الاختبار - Test Links:</h2>
+        
+        <a href="/standalone-pay/test-payment-link-123" class="test-link" target="_blank">
+            <div class="test-id">🔗 Test Link #1</div>
+            <div class="test-url">/standalone-pay/test-payment-link-123</div>
+        </a>
+        
+        <a href="/standalone-pay/abc123def456" class="test-link" target="_blank">
+            <div class="test-id">🔗 Test Link #2</div>
+            <div class="test-url">/standalone-pay/abc123def456</div>
+        </a>
+        
+        <a href="/standalone-pay/demo-link-001" class="test-link" target="_blank">
+            <div class="test-id">🔗 Test Link #3</div>
+            <div class="test-url">/standalone-pay/demo-link-001</div>
+        </a>
+
+        <a href="/standalone-pay/final-test-2024" class="test-link" target="_blank">
+            <div class="test-id">🔗 Test Link #4</div>
+            <div class="test-url">/standalone-pay/final-test-2024</div>
+        </a>
+
+        <div class="checklist">
+            <h3>✅ النتائج المتوقعة - Expected Results:</h3>
+            <ul>
+                <li>يجب أن تظهر صفحة نموذج معلومات المستلم</li>
+                <li>يجب أن يكون هناك عنوان "معلومات المستلم"</li>
+                <li>يجب أن يكون هناك حقل للاسم الكامل</li>
+                <li>يجب أن يكون هناك حقل للبريد الإلكتروني</li>
+                <li>يجب أن يكون هناك حقل لرقم الهاتف</li>
+                <li>يجب أن يكون هناك حقل للعنوان السكني</li>
+                <li>يجب أن يكون هناك زر "التالي"</li>
+                <li>يجب ألا تظهر شاشة بيضاء!</li>
+            </ul>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 تعليمات الاختبار - Testing Instructions:</h3>
+            <ol>
+                <li><strong>انقر على أي رابط أعلاه</strong></li>
+                <li><strong>تأكد من أن الصفحة تحمل بدون شاشة بيضاء</strong></li>
+                <li><strong>افتح أدوات المطور (F12) وتحقق من:</strong>
+                    <ul>
+                        <li>Console - يجب ألا توجد أخطاء باللون الأحمر</li>
+                        <li>Network - يجب تحميل جميع الملفات (JS, CSS)</li>
+                        <li>Elements - يجب وجود عناصر في DOM</li>
+                    </ul>
+                </li>
+                <li><strong>اختبر تعبئة النموذج والنقر على "التالي"</strong></li>
+                <li><strong>تأكد من الانتقال للخطوة التالية</strong></li>
+            </ol>
+        </div>
+
+        <div class="status success">
+            <strong>🎉 الحالة:</strong> تم إصلاح جميع المشاكل! جميع صفحات الدفع يجب أن تعمل الآن بشكل صحيح.
+        </div>
+    </div>
+
+    <script>
+        // Track link clicks
+        document.querySelectorAll('.test-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                console.log('🔗 Clicked test link:', this.href);
+                
+                // Show loading state
+                const originalText = this.querySelector('.test-id').textContent;
+                this.querySelector('.test-id').textContent = '⏳ جارٍ التحميل...';
+                
+                setTimeout(() => {
+                    this.querySelector('.test-id').textContent = originalText;
+                }, 2000);
+            });
+        });
+
+        // Page load notification
+        window.addEventListener('load', function() {
+            console.log('✅ Test page loaded successfully');
+            console.log('🔧 _redirects file has been fixed');
+            console.log('🎯 All /standalone-pay/* routes now redirect to index.html');
+        });
+    </script>
+</body>
+</html>

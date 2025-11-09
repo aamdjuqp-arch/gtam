@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبار صفحات الدفع - Payment Test</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: 'Almarai', Arial, sans-serif; 
+            padding: 20px;
+            margin: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px;
+        }
+        .card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid #0ea5e9;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #0ea5e9;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #0ea5e9;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.8);
+            color: white;
+            font-size: 16px;
+            font-family: 'Almarai', Arial, sans-serif;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #0284c7;
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            font-family: 'Almarai', Arial, sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+        h1, h2 {
+            color: #0ea5e9;
+            text-align: center;
+        }
+        .info {
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .warning {
+            background: rgba(234, 179, 8, 0.2);
+            border: 2px solid #eab308;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .test-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #0ea5e9;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .test-link:hover {
+            background: #0284c7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 اختبار صفحات الدفع - Payment Test</h1>
+        
+        <div class="info">
+            <h2>✅ الحالة: يعمل!</h2>
+            <p><strong>هذا اختبار ثابت - Static Test</strong></p>
+            <p>تم إنشاء هذه الصفحة كـ fallback لأن Netlify build لم يكتمل بعد.</p>
+            <p> لكنها تُظهر أن routing يعمل والتصميم صحيح.</p>
+        </div>
+
+        <div class="card">
+            <h2>📝 نموذج معلومات المستلم</h2>
+            <p>هذا هو شكل النموذج الذي يجب أن يظهر في صفحات الدفع:</p>
+            
+            <form id="testForm">
+                <div class="form-group">
+                    <label for="name">الاسم الكامل *</label>
+                    <input type="text" id="name" name="name" required placeholder="أدخل اسمك الكامل">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني *</label>
+                    <input type="email" id="email" name="email" required placeholder="example@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+966 5X XXX XXXX">
+                </div>
+
+                <div class="form-group">
+                    <label for="address">العنوان السكني *</label>
+                    <textarea id="address" name="address" required placeholder="أدخل عنوانك السكني الكامل" rows="3"></textarea>
+                </div>
+
+                <button type="submit">التالي ←</button>
+            </form>
+        </div>
+
+        <div class="warning">
+            <h3>📋 ملاحظات مهمة:</h3>
+            <ol>
+                <li><strong>React App لا يزال يُبنى على Netlify</strong></li>
+                <li><strong>الروابط التالية يجب أن تعمل قريباً:</strong>
+                    <ul>
+                        <li><a href="/standalone-pay/test-123" class="test-link">/standalone-pay/test-123</a></li>
+                        <li><a href="/standalone-pay/xyz-456" class="test-link">/standalone-pay/xyz-456</a></li>
+                    </ul>
+                </li>
+                <li><strong>until then:</strong> يمكنك استخدام هذه الصفحة للاختبار</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <h3>🔍 تشخيص المشكلة:</h3>
+            <p><strong>المشكلة:</strong> Netlify build لم يكتمل بعد (استغرق أكثر من 5 دقائق)</p>
+            <p><strong>الحل المُطبق:</strong></p>
+            <ul>
+                <li>✅ ملف _redirects محدث</li>
+                <li>✅ netlify.toml محدث</li>
+                <li>✅ PaymentRouterStandalone محسن</li>
+                <li>✅ تم بناء الكود محلياً بنجاح</li>
+                <li>⏳ في انتظار نشر Netlify</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Form handling
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            alert('✅ تم استلام البيانات:\n' + JSON.stringify(data, null, 2));
+        });
+
+        // Page load tracking
+        window.addEventListener('load', function() {
+            console.log('✅ Standalone payment test page loaded');
+            console.log('Timestamp:', new Date().toISOString());
+            console.log('This is a static fallback page while Netlify builds the React app');
+        });
+    </script>
+</body>
+</html>
