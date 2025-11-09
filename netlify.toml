@@ -1,40 +1,41 @@
 # Netlify Configuration File
-# ============================================================
-# هذا الملف يحتوي على إعدادات النشر لـ Gulf Unified Gateway
-# Project: منصة الشحن الذكية
+# Gulf Unified Gateway - منصة الشحن الذكية
 # ============================================================
 
 [build]
-  # مجلد النشر النهائي
   publish = "dist"
-
-  # أمر البناء - تثبيت dependencies ثم البناء
   command = "npm ci && npm run build"
-
-  # مجلد Netlify Functions
   functions = "netlify/functions"
 
-# إعدادات بيئة البناء
 [build.environment]
   NODE_VERSION = "18"
+  # لا تفرض production mode
+  # NPM_CONFIG_PRODUCTION=false تلقائياً مع npm ci
 
-# Security Headers - حماية الموقع
+# تعطيل plugins معينة (إذا كانت مُفعلة في Netlify UI)
+# هذا ملف للتوضيح فقط، يجب إزالة plugins من Netlify UI
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Security Headers
 [[headers]]
   for = "/*"
   [headers.values]
-    # منع إدماج الموقع في iframe
     X-Frame-Options = "SAMEORIGIN"
-    
-    # منع MIME type sniffing
     X-Content-Type-Options = "nosniff"
-    
-    # حماية XSS
     X-XSS-Protection = "1; mode=block"
-    
-    # Referrer Policy
     Referrer-Policy = "strict-origin-when-cross-origin"
-    
-    # Permissions Policy
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
 # Cache Policy for Static Assets
@@ -59,29 +60,16 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000"
 
-# SPA Routing - Single Page Application
-# توجيه جميع الطلبات لملف index.html
-# Netlify Functions لا تحتاج redirect - Netlify يتعامل معها تلقائياً
+# SPA Routing
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# Redirect old paths to new paths (if any)
-# يمكنك إضافة redirects قديمة هنا عند الحاجة
-# [[redirects]]
-#   from = "/old-route"
-#   to = "/new-route"
-#   status = 301
-#   force = true
-
-# External redirects (if needed)
-# [[redirects]]
-#   from = "/external-link"
-#   to = "https://external-site.com"
-#   status = 301
-#   force = true
-
 # ============================================================
-# انتهاء إعدادات Netlify
+# Notes:
+# - No Cypress plugin (not needed for React projects)
+# - No Subfont plugin (not needed)
+# - No Checklinks plugin (not needed)
+# - Minimal configuration for faster builds
 # ============================================================
