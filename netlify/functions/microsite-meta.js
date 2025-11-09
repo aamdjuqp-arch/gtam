@@ -140,7 +140,7 @@ exports.handler = async (event, context) => {
   // Wrap everything in try-catch to ensure we always return HTML
   // Never show Netlify login or error pages
   try {
-    const { path, queryStringParameters, headers } = event;
+    const { path: event_path, queryStringParameters, headers } = event;
     
     // Detect if this is a social media crawler or bot
     const userAgent = headers['user-agent'] || headers['User-Agent'] || '';
@@ -150,14 +150,14 @@ exports.handler = async (event, context) => {
     // Crawlers will read meta tags, regular users will be redirected via JavaScript
   
   // Extract parameters from path: /r/:country/:type/:id or /pay/:id/...
-  let pathMatch = path.match(/^\/r\/([A-Z]{2})\/(shipping|chalet)\/([a-zA-Z0-9-]+)$/);
+  let pathMatch = event_path.match(/^\/r\/([A-Z]{2})\/(shipping|chalet)\/([a-zA-Z0-9-]+)$/);
   let countryCode, type, id;
-  
+
   if (pathMatch) {
     [, countryCode, type, id] = pathMatch;
   } else {
     // Handle payment page routes: /pay/:id/...
-    pathMatch = path.match(/^\/pay\/([a-zA-Z0-9-]+)\/(.+)$/);
+    pathMatch = event_path.match(/^\/pay\/([a-zA-Z0-9-]+)\/(.+)$/);
     if (pathMatch) {
       [, id, subPath] = pathMatch;
       // For payment pages, we need to determine the type from the link data
@@ -253,7 +253,7 @@ exports.handler = async (event, context) => {
     console.log('Final service info:', { serviceKey, serviceName, serviceInfo });
     
     // Determine if this is a payment page or microsite
-    const isPaymentPage = path.startsWith('/pay/');
+    const isPaymentPage = event_path.startsWith('/pay/');
     const pageType = isPaymentPage ? 'صفحة دفع آمنة' : 'تتبع وتأكيد الدفع';
     
     title = `${pageType} - ${serviceName}`;
@@ -271,7 +271,7 @@ exports.handler = async (event, context) => {
     }
   } else if (type === "chalet") {
     const chaletName = linkData?.payload?.chalet_name || 'شاليه';
-    const isPaymentPage = path.startsWith('/pay/');
+    const isPaymentPage = event_path.startsWith('/pay/');
     const pageType = isPaymentPage ? 'دفع حجز شاليه' : 'حجز شاليه';
     
     title = `${pageType} - ${chaletName} في ${country.nameAr}`;
@@ -286,7 +286,7 @@ exports.handler = async (event, context) => {
   }
   
   const siteUrl = `https://${event.headers.host}`;
-  const fullUrl = `${siteUrl}${path}${queryStringParameters ? '?' + new URLSearchParams(queryStringParameters).toString() : ''}`;
+  const fullUrl = `${siteUrl}${event_path}${queryStringParameters ? '?' + new URLSearchParams(queryStringParameters).toString() : ''}`;
   const fullOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
   
   // Final debug logging
@@ -388,7 +388,7 @@ exports.handler = async (event, context) => {
     <!-- Update browser history immediately so React Router sees the correct path -->
     <script>
       (function() {
-        const originalPath = '${path}';
+        const originalPath = '${event_path}';
         const query = '${queryStringParameters ? '?' + new URLSearchParams(queryStringParameters).toString() : ''}';
         if (window.history && window.history.replaceState) {
           window.history.replaceState({}, '', originalPath + query);
