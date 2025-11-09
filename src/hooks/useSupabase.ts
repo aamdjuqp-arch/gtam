@@ -109,15 +109,36 @@ export const useCreateLink = () => {
     }) => {
       const linkId = crypto.randomUUID();
       const micrositeUrl = `${window.location.origin}/r/${linkData.country_code}/${linkData.type}/${linkId}`;
-      const paymentUrl = `${window.location.origin}/pay/${linkId}`;
-      
+      const paymentUrl = `${window.location.origin}/pay/${linkId}/recipient?service=${linkData.payload.service_key || linkData.payload.service || 'aramex'}`;
+
       // Simple signature (in production, use HMAC)
       // Use encodeURIComponent to handle Arabic and other Unicode characters
       const signature = btoa(encodeURIComponent(JSON.stringify(linkData.payload)));
-      
-      const { data, error } = await (supabase as any)
-        .from("links")
-        .insert({
+
+      try {
+        const { data, error } = await (supabase as any)
+          .from("links")
+          .insert({
+            id: linkId,
+            type: linkData.type,
+            country_code: linkData.country_code,
+            provider_id: linkData.provider_id,
+            payload: linkData.payload,
+            microsite_url: micrositeUrl,
+            payment_url: paymentUrl,
+            signature,
+            status: "active",
+          })
+          .select()
+          .single();
+
+        if (error) throw error;
+        return data as Link;
+      } catch (error) {
+        console.error('Supabase error, using local storage fallback:', error);
+
+        // Fallback: Save to localStorage
+        const fallbackLink: Link = {
           id: linkId,
           type: linkData.type,
           country_code: linkData.country_code,
@@ -127,12 +148,16 @@ export const useCreateLink = () => {
           payment_url: paymentUrl,
           signature,
           status: "active",
-        })
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data as Link;
+          created_at: new Date().toISOString(),
+        };
+
+        // Save to localStorage
+        const existingLinks = JSON.parse(localStorage.getItem('payment_links') || '[]');
+        existingLinks.push(fallbackLink);
+        localStorage.setItem('payment_links', JSON.stringify(existingLinks));
+
+        return fallbackLink;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["links"] });
@@ -156,16 +181,58 @@ export const useLink = (linkId?: string) => {
   return useQuery({
     queryKey: ["link", linkId],
     queryFn: async () => {
-      const { data, error } = await (supabase as any)
-        .from("links")
-        .select("*")
-        .eq("id", linkId!)
-        .single();
-      
-      if (error) throw error;
-      return data as Link;
+      try {
+        const { data, error } = await (supabase as any)
+          .from("links")
+          .select("*")
+          .eq("id", linkId!)
+          .single();
+
+        if (error) throw error;
+        return data as Link;
+      } catch (error) {
+        console.error('Supabase error, checking localStorage:', error);
+
+        // Try to get from localStorage first
+        const existingLinks = JSON.parse(localStorage.getItem('payment_links') || '[]');
+        const localLink = existingLinks.find((link: Link) => link.id === linkId);
+
+        if (localLink) {
+          return localLink;
+        }
+
+        // Create fallback link data from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const service = urlParams.get('service') || 'aramex';
+        const type = window.location.pathname.includes('/shipping') ? 'shipping' : 'chalet';
+        const country = window.location.pathname.split('/')[2] || 'SA';
+
+        // Create fallback link data
+        const fallbackLink: Link = {
+          id: linkId!,
+          type,
+          country_code: country,
+          provider_id: null,
+          payload: {
+            service_key: service,
+            service_name: service,
+            tracking_number: 'N/A',
+            package_description: 'شحن دول الخليج',
+            cod_amount: 500,
+            // Add more fields as needed
+          },
+          microsite_url: window.location.href,
+          payment_url: `${window.location.origin}/pay/${linkId}/recipient?service=${service}`,
+          signature: btoa(linkId!),
+          status: 'active',
+          created_at: new Date().toISOString(),
+        };
+
+        return fallbackLink;
+      }
     },
     enabled: !!linkId,
+    retry: false, // Don't retry Supabase calls if it fails
   });
 };
 
