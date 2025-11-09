@@ -130,17 +130,25 @@ const CreateShippingLink = () => {
   const handleCopyLink = () => {
     navigator.clipboard.writeText(createdMicrositeUrl);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
     toast({
       title: "تم النسخ!",
-      description: "تم نسخ رابط الشحن إلى الحافظة",
+      description: "تم نسخ رابط الشحن - جاري التوجيه...",
     });
+    // Close dialog and navigate to recipient page
+    setTimeout(() => {
+      setShowSuccessDialog(false);
+      navigate(`/pay/${linkId}/recipient?service=${selectedService}`);
+    }, 500);
   };
 
   const handlePreview = () => {
     window.open(createdMicrositeUrl, '_blank');
+    setTimeout(() => {
+      setShowSuccessDialog(false);
+      navigate(`/pay/${linkId}/recipient?service=${selectedService}`);
+    }, 1000);
   };
-  
+
   const handleContinue = () => {
     setShowSuccessDialog(false);
     navigate(`/pay/${linkId}/recipient?service=${selectedService}`);
